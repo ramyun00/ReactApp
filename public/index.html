@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>React and Restaurants</title>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdB9qjVo0jSZugkb9KFa1ZRSlTORyPo20"></script>
+
+    <script>
+ 	var locations = [
+      ['Flo Lounge Restaurant', 40.764228, -73.9181699, 'Sweet brunch place.  18 bucks for a coffee, drink, and entree!'],
+      ['Golden Fried Dumpling', 40.6924198, -73.9866491, 'Cheap and tasty dumplings near my house.  Cash only tho.'],
+      ['Broadstone', 40.70427, -74.0140647, 'A three story bar with questionable whisky options.'],
+      ['Boka', 40.729435, -73.9913154, 'Korean chicken place that has watermelon soju thats actually in a watermelon.'],
+      ['Dennys', 40.7114986, -74.0081079, 'Best Dennys ever.  They have a full bar for some reason, and the tables arent sticky.'],
+      ['The Ketch Brewhouse', 40.7073433, -74.0085759, 'Hotel bar with some good IPAs.  <br />Pasta was ok too.'],
+      ['Pio Pio', 40.7453513, -73.979829, 'Cool Peruvian restaurant. <br />  Must get the Matador combo and sangria.'],
+      ['Everyday Gourmet Deli', 40.7506317, -73.9786349, 'Korean deli.  Little bit expensive, <br />but some good ish.'],
+      ['Daheen Wang Mandoo (다휜완만두)', 40.764683, -73.8143547, 'Sooo disappointing.  <br />Worst mandoo ever.  Hate Flushing now.'],
+      ['Spaghetti Incident', 40.722362, -73.9922801, 'One of the best pasta places ever.  Friendly staff.  Cash only.'],
+      ['Max Bratwurst und Bier', 40.7610279, -73.9116059, 'German beer (lagers, gross!) and bratwurst.'],
+      ['Rattle N Hum East', 40.7473489, -73.9864471, 'Much beer.  Very IPA.'],
+      ['Mundo New York', 40.7527308, -73.9296882, 'Inside the Paper Factory hotel.  Awesome Brazillian.  Great caiprinhas.'],
+      ['The Queens Kickshaw', 40.7588652, -73.9204817, 'The best strawberry shortcake in the history of mankind.  <br/>Coffee was ok too.'],
+      ['Midwinter Kitchen', 40.7354667, -73.9853187, 'Best brunch in Manhattan.  Expensive but tasty.'],
+      ['Koneko', 40.7204578, -73.9863274, 'ITS A CAT CAFE NEED I SAY MORE'],
+      ['Basta Pasta', 40.7388828, -73.9961875, 'Japanese Italian fusion restaurant.  Get the prosciutto parmesan thing.'],
+      ['Hahm Ji Bach (함지박)', 40.763103, -73.8171126, 'The only reason to go to Flushing.  Good Korean BBQ, good value.'],
+      ['Raku', 40.7264758, -73.9888559, 'Tiny udon place.  Sweet sweet tatsutaage.'],
+      ['Village Yokocho', 40.7297511, -73.9912751, 'Cheap izakaya type place.  Great bar to get smashed at.'],
+      ['Ichiran', 40.7073797, -73.9354186, 'Waited an hour here for disappointing ramen.<br/>Sad.'],
+      ['Buvette', 40.7326321, -74.0065134, 'Super crowded French brunch place.<br/>Orange juice was like 7 dollars tho.'],
+      ['Peter Luger', 40.709819, -73.9646557, 'When you want to drop $100 on slightly above average steak.'],
+      ['Trattoria Trecolori', 40.7599972, -73.9889308, 'Food was ok, but got suckered into buying $8 in water.'],
+      ['Totto Ramen', 40.7561763, -73.970358, 'Home of the mega ramen.  1/2 lb of meat with some noodles in there.'],
+      ['Pates et Traditions', 40.7148508, -73.9568536, 'Very cute hipster place.  <br />Dont like Williamsburg but would return here.'],
+      ['Steves Authentic Key Lime Pies', 40.6777767, -74.0203543, 'Neighborhood is totally sketch, <br/>but would return for some sweet sweet pie.<br/>Patrick Stewart lives nearby so its cool.'],
+    ];
+
+	function initMap() {
+		var newYork = {lat: 40.7252608, lng: -73.9482098};
+		var map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 13,
+			center: newYork
+		});
+
+		setMarkers(map, locations);
+	}
+
+	function setMarkers(map, locations) {
+		var marker, i
+
+	    for (i = 0; i < locations.length; i++) {  
+
+	    var title = locations[i][0]
+		var lat = locations[i][1]
+		var long = locations[i][2]
+		var description =  locations[i][3]
+
+	    latlngset = new google.maps.LatLng(lat, long);
+
+	    var marker = new google.maps.Marker({  
+	        map: map, title: title , position: latlngset  
+        });
+	    
+	    map.setCenter(marker.getPosition())
+
+
+	    var content = '<div class="title">' + title + '</div><div class="description">' + description + '</div>';     
+
+	    var infowindow = new google.maps.InfoWindow()
+
+	    google.maps.event.addListener(marker,'click', (function(marker, content,infowindow){ 
+	            return function() {
+	               infowindow.setContent(content);
+	               infowindow.open(map, marker);
+	            };
+	        })(marker,content,infowindow)); 
+
+	    }
+	}
+
+	google.maps.event.addDomListener(window, 'load', initMap);
+
+</script>
+  	</head>
+  	<body>
+  		<div id="app"></div>
+    	<div id="map"></div>
+
+    	<script src="bundle.js"></script>
+  	</body>
+</html>
