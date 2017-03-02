@@ -1,12 +1,12 @@
 {
-  "name": "boilerplate",
+  "name": "React and Restaurants",
   "version": "1.0.0",
-  "description": "Simple react app",
+  "description": "bleh",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Andrew Mead",
+  "author": "Anna Banana",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.9.1",
